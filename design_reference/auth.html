@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TripCraft AI | Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#303038",
+                    "on-tertiary": "#3c0091",
+                    "surface-variant": "#34343d",
+                    "background": "#13131b",
+                    "outline-variant": "#464554",
+                    "on-primary-fixed": "#07006c",
+                    "on-surface": "#e4e1ed",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "surface-bright": "#393841",
+                    "surface-container-lowest": "#0d0d15",
+                    "surface": "#13131b",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#0d0096",
+                    "on-secondary-fixed": "#001f26",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-container": "#1f1f27",
+                    "tertiary-container": "#a078ff",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "secondary": "#4cd7f6",
+                    "on-surface-variant": "#c7c4d7",
+                    "on-tertiary-container": "#340080",
+                    "error": "#ffb4ab",
+                    "secondary-fixed": "#acedff",
+                    "tertiary": "#d0bcff",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-container": "#00424e",
+                    "surface-container-low": "#1b1b23",
+                    "on-background": "#e4e1ed",
+                    "inverse-primary": "#494bd6",
+                    "surface-tint": "#c0c1ff",
+                    "surface-container-highest": "#34343d",
+                    "primary": "#c0c1ff",
+                    "primary-container": "#8083ff",
+                    "inverse-surface": "#e4e1ed",
+                    "tertiary-fixed": "#e9ddff",
+                    "on-secondary": "#003640",
+                    "surface-container-high": "#292932",
+                    "on-primary": "#1000a9",
+                    "surface-dim": "#13131b",
+                    "secondary-container": "#03b5d3",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "on-error": "#690005",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "outline": "#908fa0",
+                    "on-tertiary-fixed": "#23005c",
+                    "on-secondary-fixed-variant": "#004e5c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "base": "4px",
+                    "lg": "1.5rem",
+                    "md": "1rem",
+                    "container-max": "1280px",
+                    "2xl": "4rem",
+                    "xl": "2.5rem",
+                    "xs": "0.25rem",
+                    "sm": "0.5rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Geist"],
+                    "display-lg-mobile": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Geist"],
+                    "mono-label": ["Geist"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Geist"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #13131b;
+            color: #e4e1ed;
+            overflow: hidden;
+        }
+        .auth-card {
+            backdrop-filter: blur(24px);
+            background-color: rgba(31, 31, 39, 0.7);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #c0c1ff 0%, #4cd7f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .primary-btn {
+            background: linear-gradient(135deg, #8083ff 0%, #494bd6 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .primary-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px -5px rgba(128, 131, 255, 0.3);
+        }
+        .input-field {
+            background-color: #1b1b23;
+            border: 1px solid #464554;
+            transition: border-color 0.2s ease, ring 0.2s ease;
+        }
+        .input-field:focus {
+            border-color: #c0c1ff;
+            ring: 1px solid #c0c1ff;
+            outline: none;
+        }
+        .transition-form {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hide-form {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+            position: absolute;
+        }
+        .show-form {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased">
+<!-- Split Screen Container -->
+<main class="flex min-h-screen w-full overflow-hidden">
+<!-- Left Side: Visual Experience -->
+<section class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-surface-container-lowest">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-10000 hover:scale-110" data-alt="A cinematic, high-end aerial shot of a luxury train winding through snow-capped mountains at sunset. The scene is bathed in deep purples, indigos, and soft violet light, reflecting a premium travel aesthetic. The atmosphere is serene and technologically sophisticated, with a subtle grainy texture and sharp focus on the sleek, modern design of the train against the vast, ethereal landscape." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbXyjoxK-yeg4F4dPOINbx3CyGqJK6epvuseuTstQhQN40Ml_CtUSI6jAQGdO2kOspcZNfiWNtCsPtAqP5iOEBxTAhpSWgjAcNEt075zaD8RWfJfYfCxUzMScV3hCEEwO-0Z8t1esN8xpUXx1RLrMdSQQ7nbnAnfVaKkPHPcxiRxSqqQjS14KM2p8iryFVSWuSRgKdDYwPNWWq8YKwkXUtX0NGOpM0HS7yenSJ33GZLNUmjazFKJ98QMGUDInoxmfbWC3uouTCBgM')">
+</div>
+<!-- Dark Gradient Overlay -->
+<div class="absolute inset-0 z-10 bg-gradient-to-tr from-background via-background/40 to-transparent"></div>
+<!-- Content Overlay -->
+<div class="relative z-20 flex flex-col justify-between p-16 h-full">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">TripCraft AI</h1>
+</div>
+<div class="max-w-md">
+<div class="mb-8">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                            Precision Engineered Travel
+                        </span>
+</div>
+<h2 class="font-display-lg text-display-lg mb-6 leading-tight">Your next luxury journey, <span class="gradient-text">optimized by AI.</span></h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg leading-relaxed">
+                        Join an exclusive community of modern travelers leveraging data-driven insights for seamless, premium itineraries.
+                    </p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a professional woman traveler with a sleek, minimalist style, glowing skin, and a neutral background. The lighting is soft and studio-quality, emphasizing a premium SaaS user persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEVqHddnOph7HtS--V-72kmtNqH6TW1JMgZoPTIkZ9Lj23meHciMFZAQslpjkVqgTMq1zeVVFHCru5uL1ODGdrasXrN0RX0mBD-mUXjFd0XFtwDxmpycPylUGvt4wDUr7Q0zM6Tew_p1dezDOoSxNzYX3H54_MV702EVv1BSYmqV-XcBW5WJ-7KaOIP50r2VdzZjIwcdBbJu6CT7cLX5njVcTK226KO4yArYjIWM7cX2dCyflDojFQj8KttqOE5tyz0Krg5hOtGo8"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a male architect traveler wearing premium eyeglasses, looking thoughtfully into the distance. Clean lighting, high-end aesthetic, slate-toned color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHJ54HXo8243dCmx4lqY7_-fmgDVBbIbVRVgvh665P3_Dy-stFRidoT7UBUwKeFxQs3V18eM4rLSPeqVCftmIxSyLUsIvRAyjE-p0FaTWicLRfEHW7oGTnGh4fjJw5GO2LGV_waTn8kvL7OS-4YvNjOUgPfj1EWviXOXTi6otDbMzNEEcpw5SYPEoFfP_dOKY7AdzcqCipZJYck3rivaTv0OPRMwarmPYp1yq0QwxtD2QRj6U9yUDhwLtrqjHXkLASu1DbXfDy6c8"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a young entrepreneur traveler smiling warmly. Soft light-leaks, professional photography, sophisticated and diverse user base representation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6hV4LVxULSfSJOPRSvIICHBV5bwYBGiwy4hOvD6NY4ILcLygpsoxEYBQpkxnBZyX14TIIscCOueZduWpZUyn55rKzF_d5MYbdYVttEjay6FE-cZzmGNzD4S7kNilZ41XUkMauMcItNX92W0NWH9r74xpW1tN8h6vP-TQJ8WsWt68p9wlaCbQWuFoLOU5N3b6hTA_h8_w_Bj3e8XQmEuXWqRyKf2HOLahH6ilay3E-LbwpG9522Rhgg4HTqazGZwgiiu8Sks5zsHE"/>
+</div>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Trusted by 10k+ elite travelers</p>
+</div>
+</div>
+</section>
+<!-- Right Side: Authentication Forms -->
+<section class="w-full lg:w-1/2 flex flex-col justify-center items-center px-gutter py-12 relative bg-surface overflow-y-auto">
+<!-- Form Header Mobile -->
+<div class="lg:hidden absolute top-12 left-gutter">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">TripCraft AI</h1>
+</div>
+<!-- Auth Container -->
+<div class="w-full max-w-[420px] space-y-8">
+<!-- Toggle Form Script Logic Container -->
+<div class="transition-form show-form" id="login-container">
+<div class="mb-10">
+<h3 class="font-headline-md text-headline-md mb-2">Welcome Back</h3>
+<p class="text-on-surface-variant">Sign in to your premium travel dashboard.</p>
+</div>
+<!-- Social Login -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<button class="flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface-container-low hover:bg-surface-container-high transition-all text-label-sm font-label-sm">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M12.48 10.92v3.28h7.84c-.24 1.84-.92 3.2-2.12 4.04-1.2.84-2.76 1.32-5.72 1.32-4.12 0-7.44-3.32-7.44-7.44s3.32-7.44 7.44-7.44c2.24 0 4 .8 5.32 2.08l2.32-2.32C18.12 2.52 15.52 1.5 12.48 1.5c-5.8 0-10.48 4.68-10.48 10.5s4.68 10.5 10.48 10.5c3.2 0 5.64-1.04 7.48-2.96 1.88-1.92 2.48-4.6 2.48-6.92 0-.48-.04-1-.12-1.48h-9.84z" fill="#EA4335"></path>
+</svg>
+                            Google
+                        </button>
+<button class="flex items-center justify-center gap-3 px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface-container-low hover:bg-surface-container-high transition-all text-label-sm font-label-sm">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.06.77.85-.03 2.1-.92 3.63-.78 1.48.14 2.57.73 3.19 1.63-3.02 1.81-2.54 5.82.44 7.03-.61 1.55-1.4 3.05-2.27 4.32zM12.12 7.18c-.04-2.6 2.12-4.8 4.68-4.93.35 3.14-3.1 5.3-4.68 4.93z" fill="currentColor"></path>
+</svg>
+                            Apple
+                        </button>
+</div>
+<div class="relative flex items-center gap-4 mb-8">
+<div class="flex-grow h-px bg-outline-variant/20"></div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-widest">Or with email</span>
+<div class="flex-grow h-px bg-outline-variant/20"></div>
+</div>
+<form class="space-y-5" onsubmit="return false">
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Email Address</label>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="name@company.com" type="email"/>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Password</label>
+<a class="text-label-sm font-label-sm text-primary hover:text-secondary transition-colors" href="#">Forgot Password?</a>
+</div>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full py-4 rounded-xl primary-btn text-on-primary font-label-sm text-label-sm font-bold tracking-wide uppercase mt-4">
+                            Sign In
+                        </button>
+</form>
+<p class="mt-8 text-center text-body-md text-on-surface-variant">
+                        Don't have an account? 
+                        <button class="text-primary font-bold hover:underline" onclick="toggleForms('signup')">Create Account</button>
+</p>
+</div>
+<!-- Sign Up Form -->
+<div class="transition-form hide-form" id="signup-container">
+<div class="mb-10">
+<h3 class="font-headline-md text-headline-md mb-2">Create Account</h3>
+<p class="text-on-surface-variant">Start your journey with TripCraft AI.</p>
+</div>
+<form class="space-y-5" onsubmit="return false">
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Full Name</label>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Email Address</label>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="name@company.com" type="email"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Password</label>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="Min. 8 characters" type="password"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Confirm Password</label>
+<input class="w-full px-4 py-3 rounded-xl input-field text-on-surface placeholder:text-outline/50" placeholder="••••••••" type="password"/>
+</div>
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 w-4 h-4 rounded bg-surface-container border-outline-variant text-primary focus:ring-primary focus:ring-offset-background" id="terms" type="checkbox"/>
+<label class="text-label-sm font-label-sm text-on-surface-variant" for="terms">
+                                I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+                            </label>
+</div>
+<button class="w-full py-4 rounded-xl primary-btn text-on-primary font-label-sm text-label-sm font-bold tracking-wide uppercase mt-2">
+                            Create Account
+                        </button>
+</form>
+<p class="mt-8 text-center text-body-md text-on-surface-variant">
+                        Already have an account? 
+                        <button class="text-primary font-bold hover:underline" onclick="toggleForms('login')">Sign In</button>
+</p>
+</div>
+</div>
+<!-- Footer Links -->
+<footer class="absolute bottom-8 w-full max-w-[420px] flex justify-between px-gutter">
+<p class="text-label-sm font-label-sm text-outline/60">© 2024 TripCraft AI</p>
+<div class="flex gap-4">
+<a class="text-label-sm font-label-sm text-outline/60 hover:text-primary transition-colors" href="#">Support</a>
+<a class="text-label-sm font-label-sm text-outline/60 hover:text-primary transition-colors" href="#">Privacy</a>
+</div>
+</footer>
+</section>
+</main>
+<script>
+        function toggleForms(target) {
+            const login = document.getElementById('login-container');
+            const signup = document.getElementById('signup-container');
+
+            if (target === 'signup') {
+                login.classList.remove('show-form');
+                login.classList.add('hide-form');
+                setTimeout(() => {
+                    signup.classList.remove('hide-form');
+                    signup.classList.add('show-form');
+                }, 300);
+            } else {
+                signup.classList.remove('show-form');
+                signup.classList.add('hide-form');
+                setTimeout(() => {
+                    login.classList.remove('hide-form');
+                    login.classList.add('show-form');
+                }, 300);
+            }
+        }
+
+        // Simple parallax effect for the background image
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const bg = document.querySelector('section.lg\\:w-1\\/2 div[style*="background-image"]');
+            if (bg) {
+                bg.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    </script>
+</body></html>

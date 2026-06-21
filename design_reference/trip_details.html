@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TripCraft AI - Trip Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(31, 31, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(70, 69, 84, 0.3);
+        }
+        .itinerary-line {
+            background: linear-gradient(to bottom, #8083ff 0%, #340080 100%);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #8083ff 0%, #d0bcff 100%);
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 15px rgba(192, 193, 255, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #13131b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #34343d;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#303038",
+                        "on-tertiary": "#3c0091",
+                        "surface-variant": "#34343d",
+                        "background": "#13131b",
+                        "outline-variant": "#464554",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface": "#e4e1ed",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-bright": "#393841",
+                        "surface-container-lowest": "#0d0d15",
+                        "surface": "#13131b",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#0d0096",
+                        "on-secondary-fixed": "#001f26",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container": "#1f1f27",
+                        "tertiary-container": "#a078ff",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "secondary": "#4cd7f6",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#340080",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#acedff",
+                        "tertiary": "#d0bcff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#00424e",
+                        "surface-container-low": "#1b1b23",
+                        "on-background": "#e4e1ed",
+                        "inverse-primary": "#494bd6",
+                        "surface-tint": "#c0c1ff",
+                        "surface-container-highest": "#34343d",
+                        "primary": "#c0c1ff",
+                        "primary-container": "#8083ff",
+                        "inverse-surface": "#e4e1ed",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#003640",
+                        "surface-container-high": "#292932",
+                        "on-primary": "#1000a9",
+                        "surface-dim": "#13131b",
+                        "secondary-container": "#03b5d3",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "outline": "#908fa0",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004e5c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "lg": "1.5rem",
+                        "md": "1rem",
+                        "container-max": "1280px",
+                        "2xl": "4rem",
+                        "xl": "2.5rem",
+                        "xs": "0.25rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist"],
+                        "display-lg-mobile": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Geist"],
+                        "mono-label": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
+<nav class="flex justify-between items-center max-w-container-max mx-auto px-gutter h-16">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary">TripCraft AI</span>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Community</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant font-medium px-4 py-2 hover:text-primary transition-all">Login</button>
+<button class="primary-gradient text-on-primary font-bold px-6 py-2 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20">Get Started</button>
+</div>
+</nav>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant/10 hidden md:flex flex-col py-6">
+<div class="mt-16 px-6 mb-8">
+<div class="flex items-center gap-3 p-3 bg-surface-container rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up high-resolution portrait of a stylish modern traveler with a minimalist aesthetic. The lighting is soft and cinematic, highlighting sophisticated features. The background is a blurred airport lounge with deep blue and violet tones, emphasizing a premium travel experience and high-end professional lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXfubzACG_NodmpHb2Ox496fGBpYMS7seY6km9Vz0LApAOKth88AZ0D34IP1GoVx-YrfFjBbbxBkxrcjSuW7LivpywQsrggXoyytuydMO5URd6TxdtNytOOgpb_IYblrQEG-1nRHWdDv8GHzXY54UYtLjImRoTDfqZd97Affr8otruVftgVUc-04HUo2XF3duY05ho79KgL96kWc4-YKnxo7S3j37WZm6DOv_-OuJsSMVBV5LZ9--3e1WpRk46Yt42NmUFaxantl0"/>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface">Traveler Pro</p>
+<p class="text-[10px] text-primary uppercase tracking-widest font-bold">Premium Member</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 transition-all translate-x-1" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-medium text-on-primary-container">Planner</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-medium">Assistant</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-medium">Expenses</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-medium">Maps</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium">Packing</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="px-2 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 primary-gradient text-on-primary font-bold py-3 rounded-lg mb-4 hover:shadow-xl hover:shadow-primary/30 transition-all">
+<span class="material-symbols-outlined">add</span>
+                New Trip
+            </button>
+<div class="border-t border-outline-variant/10 pt-4">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-medium">Help</span>
+</a>
+<a class="flex items-center gap-3 text-error hover:bg-error/10 rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:pl-64 pt-16 min-h-screen">
+<div class="max-w-container-max mx-auto px-gutter py-8">
+<!-- Hero Banner -->
+<section class="relative h-96 rounded-3xl overflow-hidden mb-12 shadow-2xl group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A breathtaking aerial view of Tokyo, Japan at dusk. The city skyline is a tapestry of glowing neon lights in electric blues and soft purples, reflecting the premium TripCraft aesthetic. Mount Fuji is visible in the distant haze against a gradient sky of indigo and violet. The overall mood is sophisticated, futuristic, and inspiring, capturing the essence of luxury travel and urban discovery." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOfZDj8njMmmD5TAV70PzQYusYYvGrk8AjXXqR0Cghw5BR3euDG7czHQL-R1lpUQyLCsLGaPqV6N13BgvCBkQWO6coBof4PYihmSk_WGBnGGLKyh4Lw3FTz8JkLrWv5-s6Zi5d5rAX6_IbVErai6SA8JNciWszy1FuR1FGDTsPAbd7TL55g6h10lkdJibMZ7F5p8z3IFq3Xc-ZpLmRrgU_GryADg2khfdYwliySP8Sowcyz3crIiZb5mmtmdNr0hwXplYSZDWfcHo')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-10 w-full flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                            Japan • Tokyo &amp; Kyoto
+                        </div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Ethereal Zen Expedition</h1>
+<p class="text-on-surface-variant font-medium flex items-center gap-4">
+<span>October 12 — October 21, 2024</span>
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+<span>9 Nights</span>
+</p>
+</div>
+<div class="flex gap-4">
+<div class="glass-card px-6 py-4 rounded-2xl flex flex-col items-center min-w-[120px]">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase">Budget</span>
+<span class="text-headline-md font-headline-md text-primary">$4,250</span>
+</div>
+<div class="glass-card px-6 py-4 rounded-2xl flex flex-col items-center min-w-[120px]">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase">Travelers</span>
+<div class="flex -space-x-2 mt-1">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-container"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-secondary-container"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Itinerary Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Day Navigation (Sticky) -->
+<div class="lg:col-span-3">
+<div class="sticky top-24 space-y-4">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-6">Itinerary</h3>
+<div class="space-y-2">
+<button class="w-full text-left p-4 rounded-xl glass-card border-primary/40 flex justify-between items-center group transition-all hover:bg-primary/10">
+<div>
+<p class="text-xs font-bold text-primary uppercase">Day 1</p>
+<p class="font-bold text-on-surface">Arrival &amp; Neon Nights</p>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="w-full text-left p-4 rounded-xl hover:bg-surface-container-high transition-all flex justify-between items-center text-on-surface-variant group">
+<div>
+<p class="text-xs font-bold uppercase">Day 2</p>
+<p class="font-medium">Old Tokyo Discovery</p>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full text-left p-4 rounded-xl hover:bg-surface-container-high transition-all flex justify-between items-center text-on-surface-variant group">
+<div>
+<p class="text-xs font-bold uppercase">Day 3</p>
+<p class="font-medium">Art &amp; Tech Fusion</p>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full text-left p-4 rounded-xl hover:bg-surface-container-high transition-all flex justify-between items-center text-on-surface-variant group">
+<div>
+<p class="text-xs font-bold uppercase">Day 4</p>
+<p class="font-medium">Bullet Train to Kyoto</p>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Timeline -->
+<div class="lg:col-span-9 space-y-16">
+<!-- Day Block -->
+<div class="relative pl-12">
+<div class="absolute left-4 top-2 bottom-0 w-0.5 itinerary-line rounded-full opacity-30"></div>
+<div class="mb-12">
+<div class="absolute left-0 top-0 w-8 h-8 rounded-full primary-gradient flex items-center justify-center text-on-primary shadow-lg shadow-primary/40 z-10">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Monday, Oct 12: Arrival</h2>
+</div>
+<!-- Morning -->
+<div class="mb-10 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">wb_sunny</span>
+<h4 class="text-label-sm font-label-sm text-secondary uppercase tracking-widest">Morning</h4>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col md:flex-row group transition-all hover:border-primary/50">
+<div class="md:w-48 h-32 md:h-auto bg-cover bg-center" data-alt="A sleek and modern business class terminal at Narita International Airport. The architecture features high ceilings with intricate geometric glass patterns and soft, diffuse natural light. The environment is calm and efficient, with high-end digital signage and minimalist furniture. The color palette includes cool grays, slate, and subtle indigo accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsCJ_dZGsOBP-0fH463ScLhP2BhTw9Kst1JBqVI3pNecQaQ1Ua_Me8lWK0nxTHE1UbqV6XNpznnAVRqwjnR4Zr8TBBboM0NOxjnL0YpAbX1UpsXIlDvesUqON8vnTZn2Pyyk025doeM3fagRHAaZ1v2TBL7yVtzQ-Q3SW6Y705q3hboqhc1_DzVNom5Fg3M8tqpP_I9ffeUBzetnj19J3xVxQ0pov8R6cKa-L4Zzvxxv_fepiVVDcfbaJJNJIxIQ4mJa7aQjqzJYU')"></div>
+<div class="flex-1 p-6 relative">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-xs font-mono-label text-primary bg-primary/10 px-2 py-0.5 rounded">08:30 AM</span>
+<h5 class="text-lg font-bold text-on-surface mt-1">Arrival at Narita (NRT)</h5>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-error"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">Fast-track immigration and private transfer pick-up at terminal 1. Our driver will be holding a 'TripCraft' sign.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Logistics</span>
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Transfer</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Afternoon -->
+<div class="mb-10 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">light_mode</span>
+<h4 class="text-label-sm font-label-sm text-primary uppercase tracking-widest">Afternoon</h4>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col md:flex-row group transition-all hover:border-primary/50">
+<div class="md:w-48 h-32 md:h-auto bg-cover bg-center" data-alt="The exterior and lobby of a luxury boutique hotel in Tokyo's Ginza district. The design is a fusion of traditional Japanese craftsmanship and ultra-modern minimalism. Dark wood, textured stone walls, and warm ambient lighting create an inviting, premium atmosphere. Large glass windows offer a glimpse into a high-end lounge area with indigo velvet seating and designer lighting fixtures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAlLX9No-38IhHdxvwIDPYyT38ZAI0ImTIGDREgjMPjyJBxNnSmZ_Gu2lvwchvQcu0vaQl3Ivm6CwRnrSxUU7id-IQ3ISb1x5zk9PTcVE7cHKoDn9Qm0xlHMiVAl5NnVaUuSIo2W1pyrWSfg_zcxWWXNeO-APgON7CbWe5YRfGVajJkwMAjDVZLGb7ytO6oNF04i2mqPpnPq1mv1eyLixpLjcZm2DcjQkNGq6rDT9ZuP4wpnf7S-rJCOu1-PEZJ7CZCKO_LmsmaVTo')"></div>
+<div class="flex-1 p-6 relative">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-xs font-mono-label text-primary bg-primary/10 px-2 py-0.5 rounded">02:00 PM</span>
+<h5 class="text-lg font-bold text-on-surface mt-1">Hotel Check-in: Aman Tokyo</h5>
+</div>
+<div class="flex gap-1">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-error"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">Refresh at the hotel and enjoy the panoramic views of the Imperial Palace gardens from the 33rd floor.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Accommodation</span>
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Leisure</span>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col md:flex-row group border-dashed border-outline-variant/30 hover:border-primary/50 transition-all cursor-pointer">
+<div class="flex-1 p-6 flex flex-col items-center justify-center text-on-surface-variant hover:text-primary gap-2 min-h-[100px]">
+<span class="material-symbols-outlined text-3xl">add_circle</span>
+<span class="text-sm font-bold uppercase tracking-widest">Add Activity</span>
+</div>
+</div>
+</div>
+<!-- Evening -->
+<div class="mb-10 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">nights_stay</span>
+<h4 class="text-label-sm font-label-sm text-tertiary uppercase tracking-widest">Evening</h4>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden flex flex-col md:flex-row group transition-all hover:border-primary/50 relative">
+<div class="absolute -left-1 top-0 bottom-0 w-1 primary-gradient rounded-full"></div>
+<div class="md:w-48 h-32 md:h-auto bg-cover bg-center" data-alt="A vibrant and atmospheric street scene in Tokyo's Shinjuku district at night. The air is filled with a soft mist, reflecting the neon signs in hues of violet, cyan, and magenta. Crowds of people are captured in motion blur, adding to the energetic urban feel. Small izakayas with glowing lanterns line the side streets, offering a contrast to the high-tech skyscrapers in the background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDytY0uwp6Sk5wezoqc0ZqKSRT2H2kmqNnJvXQYoR60_isJwb-0zdjM1qvZddRsnI8paIZjP8-6UU7uxlxvC03y27-uvtxhMOnYzN6xzy2JWKTbtIapW3pablcqmTwBqGl_-WYCJSVRinAz3CVzCBSvmLZTD88i3FEIeupIacKmdUaHCz7ek-7L-YTrROMdbMzC0MPeT8GWHkFs8-rN4C06cb8fGG4afMPTtU1EnlxqRDRNmeUgh7KMVGGwKB9YsVCxEQgy5Z-tOsQ')"></div>
+<div class="flex-1 p-6 relative">
+<div class="flex justify-between items-start mb-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-mono-label text-primary bg-primary/10 px-2 py-0.5 rounded">07:00 PM</span>
+<span class="bg-tertiary/20 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                                                    AI Recommended
+                                                </span>
+</div>
+<h5 class="text-lg font-bold text-on-surface mt-1">Shinjuku Food Safari</h5>
+</div>
+<div class="flex gap-1">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant"><span class="material-symbols-outlined text-sm">edit</span></button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-error"><span class="material-symbols-outlined text-sm">delete</span></button>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">A curated tour of the legendary Omoide Yokocho and Golden Gai. Taste premium Wagyu skewers and artisanal sake.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Culinary</span>
+<span class="px-2 py-1 rounded-md bg-surface-container-highest text-[10px] font-bold text-on-surface-variant uppercase">Experience</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 2 Preview (Faded) -->
+<div class="relative pl-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+<div class="absolute left-4 top-2 bottom-0 w-0.5 bg-outline-variant/20 rounded-full"></div>
+<div class="mb-12">
+<div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-outline-variant flex items-center justify-center text-on-surface z-10">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Tuesday, Oct 13: Old Tokyo</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- AI Assistant Floating Button -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="primary-gradient w-14 h-14 rounded-full flex items-center justify-center text-on-primary shadow-2xl hover:scale-110 active:scale-95 transition-all group relative">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">auto_awesome</span>
+<!-- Tooltip -->
+<div class="absolute right-full mr-4 bg-surface-container-highest text-on-surface text-xs font-bold px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Ask TripCraft Assistant
+            </div>
+</button>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-1">
+<span class="text-headline-md font-headline-md text-primary font-bold">TripCraft AI</span>
+<p class="text-on-surface-variant text-sm mt-4 leading-relaxed">
+                    © 2024 TripCraft AI. <br/>Precision Engineered Travel for the modern explorer.
+                </p>
+</div>
+<div class="space-y-4">
+<h6 class="font-bold text-on-surface uppercase text-xs tracking-widest">Platform</h6>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">How it works</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Pricing</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">AI Engine</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h6 class="font-bold text-on-surface uppercase text-xs tracking-widest">Resources</h6>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Community</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Travel Guides</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Support</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h6 class="font-bold text-on-surface uppercase text-xs tracking-widest">Legal</h6>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Cookie Policy</a>
+<a class="text-on-surface-variant text-sm hover:text-secondary transition-colors" href="#">Affiliates</a>
+</nav>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hover effects on itinerary cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

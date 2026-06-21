@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TripCraft AI | Precision Engineered Travel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#303038",
+                    "on-tertiary": "#3c0091",
+                    "surface-variant": "#34343d",
+                    "background": "#13131b",
+                    "outline-variant": "#464554",
+                    "on-primary-fixed": "#07006c",
+                    "on-surface": "#e4e1ed",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "surface-bright": "#393841",
+                    "surface-container-lowest": "#0d0d15",
+                    "surface": "#13131b",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#0d0096",
+                    "on-secondary-fixed": "#001f26",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-container": "#1f1f27",
+                    "tertiary-container": "#a078ff",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "secondary": "#4cd7f6",
+                    "on-surface-variant": "#c7c4d7",
+                    "on-tertiary-container": "#340080",
+                    "error": "#ffb4ab",
+                    "secondary-fixed": "#acedff",
+                    "tertiary": "#d0bcff",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-container": "#00424e",
+                    "surface-container-low": "#1b1b23",
+                    "on-background": "#e4e1ed",
+                    "inverse-primary": "#494bd6",
+                    "surface-tint": "#c0c1ff",
+                    "surface-container-highest": "#34343d",
+                    "primary": "#c0c1ff",
+                    "primary-container": "#8083ff",
+                    "inverse-surface": "#e4e1ed",
+                    "tertiary-fixed": "#e9ddff",
+                    "on-secondary": "#003640",
+                    "surface-container-high": "#292932",
+                    "on-primary": "#1000a9",
+                    "surface-dim": "#13131b",
+                    "secondary-container": "#03b5d3",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "on-error": "#690005",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "outline": "#908fa0",
+                    "on-tertiary-fixed": "#23005c",
+                    "on-secondary-fixed-variant": "#004e5c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "base": "4px",
+                    "lg": "1.5rem",
+                    "md": "1rem",
+                    "container-max": "1280px",
+                    "2xl": "4rem",
+                    "xl": "2.5rem",
+                    "xs": "0.25rem",
+                    "sm": "0.5rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["Geist"],
+                    "display-lg-mobile": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Geist"],
+                    "mono-label": ["Geist"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Geist"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #13131b;
+            color: #e4e1ed;
+            scroll-behavior: smooth;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(144, 143, 160, 0.1);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #8083ff 0%, #c0c1ff 100%);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(128, 131, 255, 0.15) 0%, transparent 70%);
+        }
+        .itinerary-line {
+            background: linear-gradient(to bottom, transparent, #464554 20%, #464554 80%, transparent);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md bg-background selection:bg-primary/30">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-gutter h-16">
+<div class="flex items-center gap-8">
+<a class="text-headline-md font-headline-md font-bold text-primary" href="#">TripCraft AI</a>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-medium text-label-sm font-label-sm hover:text-primary transition-colors duration-200" href="#features">Explore</a>
+<a class="text-on-surface-variant font-medium text-label-sm font-label-sm hover:text-primary transition-colors duration-200" href="#how-it-works">Community</a>
+<a class="text-on-surface-variant font-medium text-label-sm font-label-sm hover:text-primary transition-colors duration-200" href="#pricing">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block text-on-surface-variant font-medium text-label-sm font-label-sm hover:text-primary transition-colors duration-200">Login</button>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-lg font-label-sm text-label-sm hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative overflow-hidden pt-2xl pb-2xl px-gutter hero-glow">
+
+<div class="max-w-container-max mx-auto text-center relative z-10">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/20 border border-primary/20 text-primary font-label-sm text-label-sm mb-6">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Next-Gen AI Travel Assistant
+                </span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 max-w-4xl mx-auto tracking-tight">
+                    Plan Smarter. <span class="text-primary italic">Travel Better.</span>
+</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mx-auto mb-10">
+                    Harness the power of precision-engineered AI to create seamless, personalized itineraries in seconds. Your next adventure, crafted with data-driven perfection.
+                </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+<button class="primary-gradient text-on-primary-container px-8 py-4 rounded-xl font-headline-md text-body-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Start Planning
+                    </button>
+<button class="glass-panel text-on-surface px-8 py-4 rounded-xl font-headline-md text-body-md flex items-center justify-center gap-2 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">play_circle</span>
+                        Watch Demo
+                    </button>
+</div>
+<!-- Dashboard Preview -->
+<div class="relative max-w-5xl mx-auto group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+<div class="relative glass-panel rounded-2xl overflow-hidden border border-outline-variant/30 shadow-2xl">
+<div class="bg-surface-container-low px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-secondary/40"></div>
+<div class="w-3 h-3 rounded-full bg-primary/40"></div>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">TripCraft_Dashboard_v2.0</div>
+<div class="w-12"></div>
+</div>
+<img class="w-full h-auto aspect-video object-cover" data-alt="A hyper-realistic UI screenshot of a modern SaaS travel dashboard in dark mode. The interface features a bento-style layout with a map of Tokyo, a vertical timeline showing a flight to Narita, a sleek expense tracking widget with neon cyan graphs, and a glassmorphism AI chat assistant on the right. The color palette is dominated by deep slates, indigo accents, and subtle violet glows, reflecting a premium developer-centric aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6w-N2g3ueCvlS47r4OUAhKUV9QQh05rxAqgGZROSmauQLE_euP7Faj5GuxJxq7g4rEpFIkrOtw5r-J_E1luyV5xFgJPjOJ2FEAOA6JyWjifkYwF-T6ZIB_FlC9a86-xppLiCN8e41dWXIEVi2MI5gsThEBDutyHyTYrzuzZGAN6LGjTwzYZ-SL8pcCqL00d97VpIE2dAe21c7Yz7zMSN3-8h77Z1n_RL-lFDCAznfDgZaKiCnuGiFyRJccZE5ykWXEx89vRZjLP0"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-2xl px-gutter max-w-container-max mx-auto" id="features">
+<div class="mb-16">
+<h2 class="font-display-lg text-headline-md mb-4">Precision Tools for Professionals</h2>
+<p class="text-on-surface-variant max-w-xl">Every feature is engineered to remove friction from your travel experience, from initial research to landing back home.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Feature 1: AI Itinerary -->
+<div class="md:col-span-8 glass-panel p-8 rounded-3xl relative overflow-hidden group">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<span class="material-symbols-outlined text-primary mb-4 text-4xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-headline-md text-headline-md mb-2">AI Itinerary Generation</h3>
+<p class="text-on-surface-variant max-w-md">Our neural network analyzes millions of data points to craft a 100% personalized schedule based on your pace, budget, and interests.</p>
+</div>
+<div class="mt-8 flex gap-4 overflow-hidden">
+<!-- Decorative mini-cards -->
+<div class="flex-shrink-0 w-32 h-40 rounded-xl bg-surface-container-high border border-outline-variant/10 p-3">
+<div class="w-8 h-8 rounded-lg bg-primary/20 mb-2"></div>
+<div class="h-2 w-full bg-outline-variant/30 rounded mb-1"></div>
+<div class="h-2 w-2/3 bg-outline-variant/30 rounded"></div>
+</div>
+<div class="flex-shrink-0 w-32 h-40 rounded-xl bg-primary-container/10 border border-primary/20 p-3">
+<div class="w-8 h-8 rounded-lg bg-primary/40 mb-2"></div>
+<div class="h-2 w-full bg-primary/30 rounded mb-1"></div>
+<div class="h-2 w-2/3 bg-primary/30 rounded"></div>
+</div>
+<div class="flex-shrink-0 w-32 h-40 rounded-xl bg-surface-container-high border border-outline-variant/10 p-3">
+<div class="w-8 h-8 rounded-lg bg-outline-variant/20 mb-2"></div>
+<div class="h-2 w-full bg-outline-variant/30 rounded mb-1"></div>
+<div class="h-2 w-2/3 bg-outline-variant/30 rounded"></div>
+</div>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[200px]">calendar_month</span>
+</div>
+</div>
+<!-- Feature 2: Expenses -->
+<div class="md:col-span-4 glass-panel p-8 rounded-3xl group">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl">payments</span>
+<h3 class="font-headline-md text-headline-md mb-2">Expense Sync</h3>
+<p class="text-on-surface-variant">Real-time currency conversion and budget tracking with Geist-mono precision. Never lose track of a Yen or Euro again.</p>
+<div class="mt-6 p-4 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant">Daily Limit</span>
+<span class="text-secondary font-mono-label text-mono-label">$250.00</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- Feature 3: Assistant -->
+<div class="md:col-span-4 glass-panel p-8 rounded-3xl group">
+<span class="material-symbols-outlined text-primary mb-4 text-4xl">chat_bubble</span>
+<h3 class="font-headline-md text-headline-md mb-2">Concierge Assistant</h3>
+<p class="text-on-surface-variant">A 24/7 AI companion ready to rebook flights, find last-minute reservations, or translate menus.</p>
+</div>
+<!-- Feature 4: Weather -->
+<div class="md:col-span-4 glass-panel p-8 rounded-3xl group">
+<span class="material-symbols-outlined text-secondary mb-4 text-4xl">cloud</span>
+<h3 class="font-headline-md text-headline-md mb-2">Smart Forecasts</h3>
+<p class="text-on-surface-variant">Hyper-local weather alerts tailored to your exact itinerary locations and activities.</p>
+</div>
+<!-- Feature 5: Packing -->
+<div class="md:col-span-4 glass-panel p-8 rounded-3xl group">
+<span class="material-symbols-outlined text-primary mb-4 text-4xl">inventory_2</span>
+<h3 class="font-headline-md text-headline-md mb-2">Packing Engine</h3>
+<p class="text-on-surface-variant">Automated lists based on climate data and planned activities. Pack light, pack right.</p>
+</div>
+<!-- Feature 6 & 7: Small horizontal cards -->
+<div class="md:col-span-6 glass-panel p-6 rounded-3xl flex items-center gap-6">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">map</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg">Interactive Maps</h4>
+<p class="text-on-surface-variant text-label-sm">Offline-ready vector maps with custom POIs.</p>
+</div>
+</div>
+<div class="md:col-span-6 glass-panel p-6 rounded-3xl flex items-center gap-6">
+<div class="w-12 h-12 rounded-2xl bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg">PDF Reports</h4>
+<p class="text-on-surface-variant text-label-sm">Elegant, printable itinerary dossiers.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="py-2xl bg-surface-container-lowest border-y border-outline-variant/10" id="how-it-works">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-md mb-4">From Dream to Departure</h2>
+<p class="text-on-surface-variant">Three simple steps to unlock a superior travel experience.</p>
+</div>
+<div class="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Connector line for desktop -->
+<div class="hidden md:block absolute top-12 left-24 right-24 h-0.5 border-t-2 border-dashed border-outline-variant/20"></div>
+<!-- Step 1 -->
+<div class="relative text-center group">
+<div class="w-24 h-24 rounded-full bg-surface-container-high border border-outline-variant/20 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface">add_location</span>
+<div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-label-sm">1</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Create Your Trip</h3>
+<p class="text-on-surface-variant">Input your dates, destination, and style. Our system handles the heavy lifting.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative text-center group">
+<div class="w-24 h-24 rounded-full bg-surface-container-high border border-outline-variant/20 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:border-secondary transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface">psychology</span>
+<div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary font-bold text-label-sm">2</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Generate AI Plan</h3>
+<p class="text-on-surface-variant">Watch as our engine optimizes routes, books stays, and suggests hidden gems.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative text-center group">
+<div class="w-24 h-24 rounded-full bg-surface-container-high border border-outline-variant/20 flex items-center justify-center mx-auto mb-6 relative z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-4xl text-on-surface">flight_takeoff</span>
+<div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-label-sm">3</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Travel with Confidence</h3>
+<p class="text-on-surface-variant">Access your smart itinerary offline and enjoy real-time assistance anywhere.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-2xl px-gutter max-w-container-max mx-auto">
+<h2 class="font-display-lg text-headline-md text-center mb-16">Trusted by Modern Explorers</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+<p class="italic text-on-surface-variant mb-8 text-body-lg">"TripCraft AI completely transformed how I approach business travel. The expense tracking alone saved me 4 hours of paperwork last month."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female executive in her 30s with a sharp, modern haircut. The lighting is bright and high-contrast, against a minimalist blurred office background. She has a confident, warm smile, reflecting a high-end professional persona consistent with a luxury SaaS brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdmbuOngo2jGWGqNqEkkgT4Eegeib5-sTvxg85I09hhLURANbGPhC8Yukom0WILHcOagpz4T1dI9c05_9phmEfyVFqtthuAliemXqXV5x9H5wD2yzcQZU3bDGNhvPYX6yOytyXNBGMSCxYEonLKpl9ln7r9VrzEQNMoHqxABD1HLxvCNEX7vtTEyIvcHNlnnrGGh5LM71XcgYA52cYhqe_t-j7hzr3re_RxstxQNctX9edhDRf8C9bDLx3VyWGkipcEn1WtsOqlR4"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md">Sarah Jenkins</p>
+<p class="text-label-sm font-label-sm text-primary uppercase">Product Design Lead</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="glass-panel p-8 rounded-2xl flex flex-col justify-between border-primary/20 bg-primary-container/5">
+<p class="italic text-on-surface-variant mb-8 text-body-lg">"The AI-generated itinerary for my Tokyo trip was flawless. It found restaurants that weren't even on the major blogs. Truly a game-changer."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a male digital nomad in his late 20s, wearing stylish eyewear and a simple black t-shirt. The background is a soft-focus urban setting at dusk with warm city lights, creating a moody, sophisticated atmosphere that aligns with the dark-mode aesthetic of the app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQhZ9KW8_d_QQB2AotMSbNHHIRJvbcXkw1TVcct2pyNJ6oOMAwPGFh3AoMqLE3N5JCCSesHUqAACfBx7Zt0CCRhUkC1i3y0PdtBHAn6dnLd0rZGAL_kXBLbH2SWHe3vqaSyi915FhybPhZv5TlPxKCaj58SvwVFThpSwRbkqDIo6YqwXCyOpLYLB-XDXI6PeAkCNcCybrCoUpOE75BQU9FqkP6VPWNZoph8RB4Gk0bG6Z-NFXXhOA1TQUlorQUF3_u6EUQioNqww4"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md">Marcus Chen</p>
+<p class="text-label-sm font-label-sm text-primary uppercase">Full Stack Developer</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+<p class="italic text-on-surface-variant mb-8 text-body-lg">"Finally, a travel app that feels like a professional tool rather than a toy. The PDF reports are beautiful and highly functional for group trips."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A portrait of a sophisticated woman in her early 40s, looking elegant in a tailored blazer. The background is an abstract, clean architectural space with soft grey tones. Her expression is calm and intelligent, conveying a sense of refined taste and high standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASoZVcaZ_q6FZw2AH5yAJ1ZkRtzndCqTglyZBTkEodvpX23UXSx1LbnIXNg_qJIKUr83SlKBa4I5EnEA7OZR8e4Y06v2xxvgU2IKRTaEjRSlxSKkxHp8NclAPN3ysK1ESV1QUYUqmuUenUvxuYndsy2O5KH1LWzg-dGn1veR7o-9cJPrWixUOU6piC3-TkH--_J10DLarLHNScwqnrL6HxGQ_ZLJ-erlNQ0HbLInOWl67_JHAA8DYIvmFCn1LmtiMIJQIJlLtOHw4"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md">Elena Rodriguez</p>
+<p class="text-label-sm font-label-sm text-primary uppercase">Architecture Critic</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-2xl px-gutter max-w-4xl mx-auto" id="pricing">
+<div class="text-center mb-16">
+<h2 class="font-display-lg text-headline-md mb-4">Pricing for Every Journey</h2>
+<p class="text-on-surface-variant">Choose the plan that fits your travel frequency.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Free Plan -->
+<div class="glass-panel p-10 rounded-3xl flex flex-col">
+<h3 class="text-headline-md font-headline-md mb-2">Explorer</h3>
+<div class="flex items-baseline gap-1 mb-6">
+<span class="text-display-lg font-display-lg">$0</span>
+<span class="text-on-surface-variant">/month</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                            3 AI-Generated Trips / month
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                            Basic Expense Tracking
+                        </li>
+<li class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+                            Community Support
+                        </li>
+</ul>
+<button class="w-full py-4 rounded-xl border border-outline-variant/30 font-headline-md hover:bg-surface-container-high transition-all">Get Started</button>
+</div>
+<!-- Pro Plan -->
+<div class="glass-panel p-10 rounded-3xl flex flex-col border-primary bg-primary-container/10 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary text-on-primary-fixed px-4 py-1 text-label-sm font-label-sm rounded-bl-xl">POPULAR</div>
+<h3 class="text-headline-md font-headline-md mb-2">Traveler Pro</h3>
+<div class="flex items-baseline gap-1 mb-6">
+<span class="text-display-lg font-display-lg">$12</span>
+<span class="text-on-surface-variant">/month</span>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Unlimited AI Planning
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Offline Vector Maps
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            24/7 AI Concierge Chat
+                        </li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Premium PDF Exporting
+                        </li>
+</ul>
+<button class="w-full py-4 rounded-xl primary-gradient text-on-primary-container font-headline-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">Go Pro</button>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-2xl px-gutter">
+<div class="max-w-5xl mx-auto primary-gradient rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden group">
+
+<div class="relative z-10">
+<h2 class="text-on-primary-container font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Ready to engineer your next escape?</h2>
+<p class="text-on-primary-container/80 text-body-lg max-w-xl mx-auto mb-10">Join 50,000+ travelers who are exploring the world with precision and style.</p>
+<button class="bg-surface text-primary px-10 py-5 rounded-2xl font-headline-md text-headline-md shadow-2xl hover:bg-surface-bright transition-all">Start Your Free Trip</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/20 py-20">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<a class="text-headline-md font-headline-md font-bold text-primary mb-6 block" href="#">TripCraft AI</a>
+<p class="text-on-surface-variant text-label-sm font-label-sm leading-relaxed">
+                    Precision engineered travel tools for the modern explorer. Experience the future of personalized adventure.
+                </p>
+<div class="flex gap-4 mt-8">
+<a class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-on-surface font-headline-md mb-6">Product</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Features</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">API Reference</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Mobile App</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Enterprise</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface font-headline-md mb-6">Resources</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Community</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Blog</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Destinations</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Support Center</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-surface font-headline-md mb-6">Company</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Cookie Policy</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Affiliates</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-20 pt-8 border-t border-outline-variant/10 text-center">
+<p class="text-on-surface-variant text-label-sm font-label-sm">© 2024 TripCraft AI. Precision Engineered Travel. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Micro-interactions and subtle effects
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', e => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Sticky nav scroll behavior
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'bg-surface/95');
+            } else {
+                nav.classList.remove('shadow-md', 'bg-surface/95');
+            }
+        });
+    </script>
+</body></html>

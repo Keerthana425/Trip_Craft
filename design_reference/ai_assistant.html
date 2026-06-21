@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TripCraft AI - Travel Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#303038",
+                        "on-tertiary": "#3c0091",
+                        "surface-variant": "#34343d",
+                        "background": "#13131b",
+                        "outline-variant": "#464554",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface": "#e4e1ed",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-bright": "#393841",
+                        "surface-container-lowest": "#0d0d15",
+                        "surface": "#13131b",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#0d0096",
+                        "on-secondary-fixed": "#001f26",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container": "#1f1f27",
+                        "tertiary-container": "#a078ff",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "secondary": "#4cd7f6",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#340080",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#acedff",
+                        "tertiary": "#d0bcff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#00424e",
+                        "surface-container-low": "#1b1b23",
+                        "on-background": "#e4e1ed",
+                        "inverse-primary": "#494bd6",
+                        "surface-tint": "#c0c1ff",
+                        "surface-container-highest": "#34343d",
+                        "primary": "#c0c1ff",
+                        "primary-container": "#8083ff",
+                        "inverse-surface": "#e4e1ed",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#003640",
+                        "surface-container-high": "#292932",
+                        "on-primary": "#1000a9",
+                        "surface-dim": "#13131b",
+                        "secondary-container": "#03b5d3",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "outline": "#908fa0",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004e5c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "lg": "1.5rem",
+                        "md": "1rem",
+                        "container-max": "1280px",
+                        "2xl": "4rem",
+                        "xl": "2.5rem",
+                        "xs": "0.25rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist"],
+                        "display-lg-mobile": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Geist"],
+                        "mono-label": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+        .chat-bubble-ai {
+            background: rgba(192, 193, 255, 0.05);
+            border: 1px solid rgba(192, 193, 255, 0.15);
+        }
+        .ai-glow {
+            box-shadow: inset 0 0 20px rgba(192, 193, 255, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #34343d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/30 overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-center max-w-container-max mx-auto px-gutter h-16">
+<div class="text-headline-md font-headline-md font-bold text-primary">TripCraft AI</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Community</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-colors">Login</button>
+<button class="px-5 py-2.5 bg-primary-container text-on-primary-container text-label-sm font-label-sm rounded-lg font-bold hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</header>
+<!-- Main Layout Container -->
+<div class="flex h-screen pt-16">
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 z-40 bg-surface-container-low border-r border-outline-variant/10 flex flex-col py-6">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a modern traveler, soft studio lighting, high-end travel aesthetic, slate and indigo color tones, clean and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbfBqAH4vBbm6Y1yUrMmdoQOBA0fur0aNXZ1o8A4EsK7zbcpjSc0M1ImtjTBCSL0kY1cARHcKIM_LICNXHEdc_Q72PceHrNidYoEx2l4zvjzYdj3rO40wv-v-w-IxLiYMixbyFs_FbPNUPZAgz6l9wI2dzCfEREq10ZdqFoxmL3eePKb5kLXtBvJp5PTGagNfWwpevWsMIgxS7gtaRmtpk3XYzsM6gW_GftJAlSgESFnNzDwIZSxzLRBrzS9ObdZNMs-5gviCV00E"/>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface font-bold">Traveler Pro</div>
+<div class="text-[10px] text-on-surface-variant opacity-70">Premium Member</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-label-sm font-label-sm">Planner</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 transition-all translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="text-label-sm font-label-sm">Assistant</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="text-label-sm font-label-sm">Expenses</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">map</span>
+<span class="text-label-sm font-label-sm">Maps</span>
+</a>
+</nav>
+<div class="mt-auto px-2 space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="text-label-sm font-label-sm">Help</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-label-sm font-label-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Conversational Canvas -->
+<main class="flex-1 ml-64 flex overflow-hidden">
+<!-- Chat Interface -->
+<section class="flex-1 flex flex-col relative bg-background">
+<!-- Chat Messages Scroll Area -->
+<div class="flex-1 overflow-y-auto px- gutter py-10 space-y-8 scroll-smooth" id="chat-container">
+<!-- AI Welcome Message -->
+<div class="max-w-3xl mx-auto w-full flex gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]">auto_awesome</span>
+</div>
+<div class="chat-bubble-ai p-5 rounded-2xl rounded-tl-none space-y-3">
+<p class="text-body-md font-body-md text-on-surface">Hello! I'm your TripCraft Assistant. I've analyzed your upcoming trip to <span class="text-primary font-bold">Tokyo</span>. How can I help you navigate your journey today?</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-colors text-left group" onclick="addMessage('Find me a quiet cafe near Shibuya', 'user')">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">coffee</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Find me a quiet cafe</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-colors text-left group" onclick="addMessage('Translate this menu for me', 'user')">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">translate</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Translate this menu</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-colors text-left group" onclick="addMessage('What is the weather forecast?', 'user')">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">cloud</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Weather forecast</span>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/20 hover:bg-surface-container transition-colors text-left group" onclick="addMessage('Nearest train station to the hotel', 'user')">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">train</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Nearest train station</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User History (Simulated) -->
+<div class="max-w-3xl mx-auto w-full flex gap-4 justify-end">
+<div class="bg-surface-container-high p-5 rounded-2xl rounded-tr-none">
+<p class="text-body-md font-body-md text-on-surface">Are there any hidden gem restaurants near my hotel in Shinjuku?</p>
+</div>
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+</div>
+</div>
+<!-- AI Response with Interactive Map Card -->
+<div class="max-w-3xl mx-auto w-full flex gap-4">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]">auto_awesome</span>
+</div>
+<div class="chat-bubble-ai p-5 rounded-2xl rounded-tl-none space-y-4">
+<p class="text-body-md font-body-md text-on-surface">Based on your preference for Japanese architecture and quiet atmospheres, I recommend <span class="text-primary">Omoide Yokocho</span> for photography, but for a hidden dining gem, try <span class="text-primary">Tatsunoya Shinjuku</span>. It's famous among locals for its unique dipping ramen.</p>
+<!-- Contextual Card -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/10 shadow-lg">
+<div class="h-32 bg-surface-container" data-alt="A cinematic, high-angle map view of Shinjuku, Tokyo at night, glowing neon lights, intricate urban grid, dark blue and vibrant purple tones, sleek digital overlay design." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGNc-mExjfs2GGuMJwflS0fFR9RbJKwxIQv_JDj3_CjdE9SaZ7FPb34vnK71aCyNhZel3eVnujMOVKr1LGLL3bJdid7j7HoRl37Y0dB4aDI7fxpPv8dSA1shB92xxCZ2ipXbRsaPV32IvwapmuUXc_UCZtDL_rYJ1dJlMXxZFCZ6GSpQCpZdh8X7r5TLVIdZGyxb15I9X3xxuHKoFhpjAwRCcgL2OcLmQUlVc2wGAsTByACMv7YZGBImNbeusrOAUUhhmHFHPUOhM')"></div>
+<div class="p-4 flex justify-between items-center">
+<div>
+<h4 class="text-label-sm font-bold text-on-surface">Tatsunoya Shinjuku</h4>
+<p class="text-xs text-on-surface-variant">7-13-2 Nishi-Shinjuku, Shinjuku</p>
+</div>
+<button class="px-3 py-1.5 bg-primary/10 text-primary text-[10px] rounded-lg font-bold border border-primary/20 hover:bg-primary/20 transition-all">View on Map</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-gutter max-w-4xl mx-auto w-full">
+<div class="relative group ai-glow rounded-2xl">
+<textarea class="w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl px-6 py-4 pr-32 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all resize-none text-body-md" id="chat-input" placeholder="Ask anything about your trip..." rows="1"></textarea>
+<div class="absolute right-3 bottom-3 flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2.5 bg-primary text-on-primary rounded-xl hover:opacity-90 active:scale-95 transition-all" onclick="handleSend()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<p class="text-[11px] text-center mt-3 text-on-surface-variant opacity-50">TripCraft AI can provide suggestions but always verify critical travel information.</p>
+</div>
+</section>
+<!-- Contextual Sidebar -->
+<aside class="hidden xl:flex w-80 bg-surface-container-lowest border-l border-outline-variant/10 flex-col overflow-y-auto">
+<div class="p-6 space-y-8">
+<!-- Trip Summary Card -->
+<div class="space-y-4">
+<h3 class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Active Trip</h3>
+<div class="relative rounded-2xl overflow-hidden aspect-video group">
+<img class="w-full h-full object-cover" data-alt="A stunning sunset view of Mt. Fuji seen from a high-rise in Tokyo, warm golden hour light hitting the city skyline, professional photography, clean composition, minimalist travel vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn1hinUFiylFIgkchF4LC7T4rX7_8RSTgAZn2vLtISog2gyLaE4rNGOeZEJOSyG_W4DogPTqa2UORH0yEdVEhoVxEY9WgZ-MJqJJ956xdlW_eyS-n0l7fPAm-d_6YlCfaq-dvcRd1vptJg84-AyolWrp1CsOHV6YkGIg-c29Pgfy0gRJ9KOyv9GhhT2EukhENc30DP9QejSrAq44Mxhh61hwyxoOgJtNtMrcZ_9y5vfvy_WfdO8Gjw-Bt8Xr2Doe_eQbWiHsngSqA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+<span class="text-white font-bold text-headline-md">Tokyo &amp; Kyoto</span>
+<span class="text-white/70 text-xs">Nov 12 - Nov 24, 2024</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Timeline -->
+<div class="space-y-4">
+<h3 class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Timeline</h3>
+<div class="space-y-6 relative before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/20">
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="w-6 h-6 rounded-full bg-primary-container ring-4 ring-background z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">flight</span>
+</div>
+<div>
+<p class="text-label-sm font-bold text-on-surface">Arrival NRT</p>
+<p class="text-xs text-on-surface-variant">Today, 14:30</p>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest ring-4 ring-background z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">hotel</span>
+</div>
+<div>
+<p class="text-label-sm font-bold text-on-surface">Check-in: Park Hyatt</p>
+<p class="text-xs text-on-surface-variant">Today, 16:00</p>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest ring-4 ring-background z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">restaurant</span>
+</div>
+<div>
+<p class="text-label-sm font-bold text-on-surface">Dinner at Sukiyabashi Jiro</p>
+<p class="text-xs text-on-surface-variant">Tonight, 20:00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Travel Essentials -->
+<div class="space-y-4">
+<h3 class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Essentials</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container p-3 rounded-xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary text-[20px] mb-1">thermostat</span>
+<p class="text-[10px] text-on-surface-variant">Weather</p>
+<p class="text-label-sm font-bold font-mono-label">14°C / 8°C</p>
+</div>
+<div class="bg-surface-container p-3 rounded-xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary text-[20px] mb-1">currency_exchange</span>
+<p class="text-[10px] text-on-surface-variant">JPY/USD</p>
+<p class="text-label-sm font-bold font-mono-label">151.2</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<!-- Script for Micro-interactions -->
+<script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatInput = document.getElementById('chat-input');
+
+        function addMessage(text, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `max-w-3xl mx-auto w-full flex gap-4 ${role === 'user' ? 'justify-end' : ''}`;
+            
+            const content = role === 'user' 
+                ? `
+                <div class="bg-surface-container-high p-5 rounded-2xl rounded-tr-none">
+                    <p class="text-body-md font-body-md text-on-surface">${text}</p>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+                </div>
+                `
+                : `
+                <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-on-primary-container text-[18px]">auto_awesome</span>
+                </div>
+                <div class="chat-bubble-ai p-5 rounded-2xl rounded-tl-none">
+                    <p class="text-body-md font-body-md text-on-surface">${text}</p>
+                </div>
+                `;
+
+            messageDiv.innerHTML = content;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            if (role === 'user') {
+                setTimeout(() => {
+                    addMessage("I'm looking into that for you. Give me just a second to check current availability and local recommendations...", "ai");
+                }, 800);
+            }
+        }
+
+        function handleSend() {
+            const text = chatInput.value.trim();
+            if (text) {
+                addMessage(text, 'user');
+                chatInput.value = '';
+                chatInput.rows = 1;
+            }
+        }
+
+        // Auto-expand textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.scrollHeight > 200) {
+                this.style.overflowY = 'auto';
+            } else {
+                this.style.overflowY = 'hidden';
+            }
+        });
+
+        // Enter to send
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+    </script>
+</body></html>

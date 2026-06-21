@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard | TripCraft AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #13131b;
+            color: #e4e1ed;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(70, 69, 84, 0.3);
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 20px rgba(192, 193, 255, 0.05);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #8083ff 0%, #c0c1ff 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #34343d;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#303038",
+                      "on-tertiary": "#3c0091",
+                      "surface-variant": "#34343d",
+                      "background": "#13131b",
+                      "outline-variant": "#464554",
+                      "on-primary-fixed": "#07006c",
+                      "on-surface": "#e4e1ed",
+                      "on-tertiary-fixed-variant": "#5516be",
+                      "surface-bright": "#393841",
+                      "surface-container-lowest": "#0d0d15",
+                      "surface": "#13131b",
+                      "error-container": "#93000a",
+                      "on-primary-container": "#0d0096",
+                      "on-secondary-fixed": "#001f26",
+                      "primary-fixed": "#e1e0ff",
+                      "surface-container": "#1f1f27",
+                      "tertiary-container": "#a078ff",
+                      "tertiary-fixed-dim": "#d0bcff",
+                      "secondary": "#4cd7f6",
+                      "on-surface-variant": "#c7c4d7",
+                      "on-tertiary-container": "#340080",
+                      "error": "#ffb4ab",
+                      "secondary-fixed": "#acedff",
+                      "tertiary": "#d0bcff",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-container": "#00424e",
+                      "surface-container-low": "#1b1b23",
+                      "on-background": "#e4e1ed",
+                      "inverse-primary": "#494bd6",
+                      "surface-tint": "#c0c1ff",
+                      "surface-container-highest": "#34343d",
+                      "primary": "#c0c1ff",
+                      "primary-container": "#8083ff",
+                      "inverse-surface": "#e4e1ed",
+                      "tertiary-fixed": "#e9ddff",
+                      "on-secondary": "#003640",
+                      "surface-container-high": "#292932",
+                      "on-primary": "#1000a9",
+                      "surface-dim": "#13131b",
+                      "secondary-container": "#03b5d3",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "outline": "#908fa0",
+                      "on-tertiary-fixed": "#23005c",
+                      "on-secondary-fixed-variant": "#004e5c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "base": "4px",
+                      "lg": "1.5rem",
+                      "md": "1rem",
+                      "container-max": "1280px",
+                      "2xl": "4rem",
+                      "xl": "2.5rem",
+                      "xs": "0.25rem",
+                      "sm": "0.5rem"
+              },
+              "fontFamily": {
+                      "label-sm": ["Geist"],
+                      "display-lg-mobile": ["Geist"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Geist"],
+                      "mono-label": ["Geist"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Geist"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary/30">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-low border-r border-outline-variant/10 flex flex-col py-6">
+<div class="px-6 mb-10">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">TripCraft AI</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1 opacity-60">Travel Intelligence</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-sm text-label-sm">Planner</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-sm text-label-sm">Assistant</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Expenses</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-sm text-label-sm">Maps</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm">Packing</span>
+</a>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-sm text-label-sm">Help</span>
+</a>
+<a class="flex items-center gap-3 text-error/80 hover:bg-error-container/20 rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col relative overflow-hidden">
+<!-- Header -->
+<header class="h-20 flex items-center justify-between px-gutter sticky top-0 bg-surface/80 backdrop-blur-xl z-30 border-b border-outline-variant/10">
+<div class="flex-1 max-w-xl">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-xl pl-12 pr-4 py-2.5 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md placeholder:text-on-surface-variant/40" placeholder="Search itineraries, flights, or cities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant/10">
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface">Alex Thompson</p>
+<p class="text-[10px] uppercase tracking-widest text-secondary font-bold">Premium Member</p>
+</div>
+<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A professional and sleek studio portrait of a modern business professional traveler in their early 30s. The lighting is soft and cinematic with cool blue and deep charcoal tones, reflecting a high-end SaaS executive aesthetic. The background is a blurred luxury airport lounge with subtle architectural details, maintaining a premium and travel-focused mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXxunIBYzYNM8DYPeDuGCpBR_GW4rPhK9vobh6B0g1o9V5S0OFhi_W-zrKDGVE_O9-OpxTzXZQpZy6nTxxqiYYKMhqOJ9QJPBc-0qfhHz1gtwwvbr4y-KHsbafdtmoiQBiDec_fwwoKXd0Tn1cLoLFIJNVSAYd231WM8V569FSOuKBq8hD18Aa_ot5QGHZN6lX0_yVJvux4ofocOiJ3oyvb9kgrPOe9xsVXiB27Qko9Gyjelcrn66F18lkqllb5vFNcB8oomxqMcg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 p-gutter max-w-container-max mx-auto w-full">
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-2xl">
+<div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined p-2 rounded-lg bg-primary/10 text-primary">flight_takeoff</span>
+<span class="text-label-sm font-label-sm text-secondary">+2 This Month</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Upcoming Trips</p>
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">12</h3>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined p-2 rounded-lg bg-tertiary/10 text-tertiary">account_balance_wallet</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant/60">Annual Goal</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Total Budget</p>
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">$24,500</h3>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined p-2 rounded-lg bg-secondary/10 text-secondary">analytics</span>
+<span class="text-label-sm font-label-sm text-error">-12% vs last year</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Total Expenses</p>
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">$8,240</h3>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined p-2 rounded-lg bg-on-surface-variant/10 text-on-surface-variant">bookmark</span>
+<span class="text-label-sm font-label-sm text-primary">Top: Amalfi Coast</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Saved Destinations</p>
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">48</h3>
+</div>
+</div>
+</section>
+<!-- Layout Grid (Bento Style) -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Main Activity Feed (Col 1-8) -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<!-- Weather & Next Destination -->
+<div class="relative h-64 rounded-3xl overflow-hidden glass-panel group">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-10"></div>
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A breathtaking cinematic wide-shot of Tokyo city skyline at dusk with Mount Fuji in the distance. The lighting is a blend of neon city lights and deep purple twilight sky. The style is ultra-high definition, mirroring a premium travel photography aesthetic with a focus on depth, clarity, and cool urban tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrzYm6Klu6AZ3hu6mJwI-Np2hU02i9dqV0Aoe1saZTF_lhVg79oPbP4jyLtG2BWYopwww69NZAotXsbmJSC7q6_aDzhMpUe5ISVLDMRnDun9IOrQZLN1UN4Og6TOSzUFOnHlEeV2iu4vmkfeN4Ow8PMLXjzmUCviYjoGV6WgItGgzIV54xBTOj-P8da-nEDri12J-q9aQlmmUOByg6xev6L_bRUrLsC8mqnkc9Nwxb_OXF3sYbzdAtFP3pJUsO5kKNIOE4hwTPkW0"/>
+</div>
+<div class="relative z-20 h-full p-8 flex flex-col justify-end">
+<div class="flex items-end justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<span class="text-label-sm font-label-sm tracking-widest uppercase text-on-surface">Next Trip: Tokyo, Japan</span>
+</div>
+<h2 class="text-display-lg font-display-lg leading-tight">In 14 Days</h2>
+</div>
+<div class="text-right glass-panel p-4 rounded-2xl border-white/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-4xl text-primary">cloud</span>
+<div>
+<p class="text-headline-md font-headline-md">24°C</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Mostly Cloudy</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Trips Table-ish List -->
+<div class="glass-panel rounded-3xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-headline-md font-headline-md">Recent Journeys</h3>
+<button class="text-label-sm font-label-sm text-primary hover:underline transition-all">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Trip Item -->
+<div class="flex items-center justify-between p-4 rounded-2xl hover:bg-surface-container transition-all group cursor-pointer border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up architectural detail of a Parisian balcony with iron railings during a soft morning fog. The color palette is composed of muted greys, soft whites, and charcoal tones, reflecting a sophisticated and moody European travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBanu8mEG018D6B73FRsBrIc97T4teQgYR18OxjSfxdaD_V_TYCv46x9qfX_4TMktYu6fzyCNBcku4F4DFI4GFXpAHO_sC_M1Az3er_qZ3P1E22pI5WfBuOws3IGLgevtAFm5ORXd1HAufi9X4Z_E0ZwmxuTYq4EwxyNPBRO5BHdpSjlClgE3ZHMdGXT4FsuTPRmWar90K5yONDgxjrY1QjIEMleGEo2o9SqgBqEeSrk10weuOGBQJM0LXFjX0HGVwVR_W38K5FWGo"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md text-on-surface">Paris Weekend Getaway</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-60">Sep 12 - Sep 15, 2023</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<p class="font-mono-label text-mono-label text-on-surface">$1,450.00</p>
+<p class="text-[10px] text-secondary font-bold uppercase">Business</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Trip Item -->
+<div class="flex items-center justify-between p-4 rounded-2xl hover:bg-surface-container transition-all group cursor-pointer border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Top down aerial view of crystal clear turquoise water crashing against white jagged limestone cliffs in Bali. The lighting is bright tropical sun, creating high-contrast shadows. The style is vibrant, professional drone photography with a luxurious and serene atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKeoT2cRP4kbpZayCbf_vS6pUlizp6DBBGksoEtkvp2qVcuUq-BOE5QFg-XG0et_j-1ITmqfm6pkO7I867e4FGXyZ19Dn8UQXwt0S7AVkDxjB4li3y5sY1o9KFWfSG8hOhDhyfPoHaoL0CzaFTNqMWkPW-rsuIzo5q_sfnRHklT6hsjZFPMjHFmmkWOhuau_ccDacLHKKrxlnTqfdsDaU7WTQfpt6ZlIuGz8jw_1GY7YRqkZYJv3qfSpnKYpRBILruegztHStVa1I"/>
+</div>
+<div>
+<p class="font-headline-md text-body-md text-on-surface">Bali Retreat</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-60">Aug 01 - Aug 10, 2023</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<p class="font-mono-label text-mono-label text-on-surface">$3,200.00</p>
+<p class="text-[10px] text-tertiary font-bold uppercase">Leisure</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Column (Col 9-12) -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- AI Recommendations Widget -->
+<div class="glass-panel rounded-3xl p-6 relative overflow-hidden inner-glow">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary/40 animate-pulse">auto_awesome</span>
+</div>
+<h4 class="text-label-sm font-label-sm uppercase tracking-widest text-primary mb-6">AI Recommendations</h4>
+<div class="space-y-4">
+<div class="bg-surface-container-high p-4 rounded-2xl border border-primary/10">
+<p class="text-body-md font-body-md italic text-on-surface-variant mb-3">"Based on your preference for quiet cafes, check out Fuglen in Shibuya for your Tokyo trip."</p>
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-secondary">NEW SUGGESTION</span>
+<button class="text-label-sm font-label-sm text-primary">Add to Trip</button>
+</div>
+</div>
+<div class="bg-surface-container-high/40 p-4 rounded-2xl border border-outline-variant/10">
+<p class="text-body-md font-body-md text-on-surface-variant opacity-70">"You haven't updated your packing list for Tokyo. Want me to generate a checklist based on the 24°C forecast?"</p>
+<button class="mt-3 w-full primary-gradient text-on-primary py-2 rounded-xl text-label-sm font-label-sm font-bold shadow-lg shadow-primary/20">Generate List</button>
+</div>
+</div>
+</div>
+<!-- Expense Breakdown Chart (Placeholder for Visuals) -->
+<div class="glass-panel rounded-3xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Expense Breakdown</h4>
+<span class="material-symbols-outlined text-on-surface-variant/40">more_horiz</span>
+</div>
+<div class="h-48 flex items-end justify-between gap-2 px-2">
+<div class="w-full bg-primary/20 rounded-t-lg relative group transition-all hover:bg-primary" style="height: 60%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface p-2 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20">Flights</div>
+</div>
+<div class="w-full bg-secondary/20 rounded-t-lg relative group transition-all hover:bg-secondary" style="height: 40%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface p-2 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20">Hotels</div>
+</div>
+<div class="w-full bg-tertiary/20 rounded-t-lg relative group transition-all hover:bg-tertiary" style="height: 85%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface p-2 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20">Food</div>
+</div>
+<div class="w-full bg-primary-container/20 rounded-t-lg relative group transition-all hover:bg-primary-container" style="height: 30%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface p-2 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20">Transp.</div>
+</div>
+<div class="w-full bg-outline/20 rounded-t-lg relative group transition-all hover:bg-outline" style="height: 50%">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface p-2 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20">Other</div>
+</div>
+</div>
+<div class="mt-6 flex justify-between text-label-sm font-label-sm text-on-surface-variant/40">
+<span>AUG</span>
+<span>SEP</span>
+<span>OCT</span>
+<span>NOV</span>
+<span>DEC</span>
+</div>
+</div>
+<!-- Small Map Teaser -->
+<div class="glass-panel rounded-3xl p-2 h-40 relative group overflow-hidden cursor-pointer">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors z-10"></div>
+<div class="absolute inset-0 flex items-center justify-center z-20">
+<div class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">map</span>
+<span class="text-label-sm font-label-sm">Open Interactive Map</span>
+</div>
+</div>
+<div class="w-full h-full bg-surface-container-high rounded-2xl overflow-hidden grayscale contrast-125 opacity-50">
+<img class="w-full h-full object-cover" data-alt="A detailed, high-contrast dark-mode map of Tokyo city center, showing glowing primary-colored points of interest and elegant minimal street lines. The aesthetic is clean, technological, and premium, resembling a high-end GPS or analytical dashboard interface." data-location="Tokyo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0yq_aTiHi9fCa--GejqdXLX2sO1Gog9qBUMTSaTQ-_6lFVIVvs_rg5xkX-uTWXeEBF0NgGRNe9gIet0678Jn1fZ3dFU7YnKuX56VgdEYgCHbcmLY3QpozRSdjSDWTqRt_asUPTAF4BvdMEbQ4Ni_8zmjT-88RUZWtVPBnWfMTtmOeYYUUBQFym6fKpFNDFayQUTUbYpLZoHp7sr9fHBM_C7fnkhAT0EorAdbB8ndrs18Ni-1zb2wryYa6tVf-Hmr_MNkcmLVCoGM"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 mt-2xl border-t border-outline-variant/10 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<h5 class="text-headline-md font-headline-md text-primary font-bold">TripCraft AI</h5>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-2 opacity-50">© 2024 TripCraft AI. Precision Engineered Travel.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Affiliates</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Global Interactions Script -->
+<script>
+        // Simple micro-interaction for the search bar
+        document.querySelector('input').addEventListener('focus', () => {
+            console.log('Search focused');
+        });
+
+        // Atmosphere: Subtle movement on bento cards
+        const panels = document.querySelectorAll('.glass-panel');
+        panels.forEach(panel => {
+            panel.addEventListener('mouseenter', () => {
+                panel.style.transform = 'translateY(-2px)';
+                panel.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            });
+            panel.addEventListener('mouseleave', () => {
+                panel.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Expense Tracker | TripCraft AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#303038",
+                        "on-tertiary": "#3c0091",
+                        "surface-variant": "#34343d",
+                        "background": "#13131b",
+                        "outline-variant": "#464554",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface": "#e4e1ed",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-bright": "#393841",
+                        "surface-container-lowest": "#0d0d15",
+                        "surface": "#13131b",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#0d0096",
+                        "on-secondary-fixed": "#001f26",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container": "#1f1f27",
+                        "tertiary-container": "#a078ff",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "secondary": "#4cd7f6",
+                        "on-surface-variant": "#c7c4d7",
+                        "on-tertiary-container": "#340080",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#acedff",
+                        "tertiary": "#d0bcff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#00424e",
+                        "surface-container-low": "#1b1b23",
+                        "on-background": "#e4e1ed",
+                        "inverse-primary": "#494bd6",
+                        "surface-tint": "#c0c1ff",
+                        "surface-container-highest": "#34343d",
+                        "primary": "#c0c1ff",
+                        "primary-container": "#8083ff",
+                        "inverse-surface": "#e4e1ed",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#003640",
+                        "surface-container-high": "#292932",
+                        "on-primary": "#1000a9",
+                        "surface-dim": "#13131b",
+                        "secondary-container": "#03b5d3",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "outline": "#908fa0",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004e5c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "lg": "1.5rem",
+                        "md": "1rem",
+                        "container-max": "1280px",
+                        "2xl": "4rem",
+                        "xl": "2.5rem",
+                        "xs": "0.25rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist"],
+                        "display-lg-mobile": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Geist"],
+                        "mono-label": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "mono-label": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #13131b;
+            color: #e4e1ed;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(70, 69, 84, 0.3);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #c0c1ff 0%, #4cd7f6 100%);
+        }
+        .cyan-glow {
+            box-shadow: 0 0 20px rgba(76, 215, 246, 0.15);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .pie-slice {
+            stroke-dasharray: 100 100;
+            stroke-linecap: round;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Sidebar Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-container-low border-r border-outline-variant/10 flex flex-col h-full py-6 hidden md:flex">
+<div class="px-6 mb-8">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">TripCraft AI</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-70">Traveler Pro</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-label-sm font-label-sm">Planner</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-label-sm font-label-sm">Assistant</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-sm font-label-sm">Expenses</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-label-sm font-label-sm">Maps</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-sm font-label-sm">Packing</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-sm font-label-sm">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full primary-gradient text-on-primary-fixed font-bold py-3 rounded-xl flex items-center justify-center gap-2 mb-6 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined">add</span>
+<span class="text-label-sm font-label-sm uppercase tracking-wider">New Trip</span>
+</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-secondary px-4 py-2 text-label-sm font-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-secondary px-4 py-2 text-label-sm font-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen pb-2xl">
+<!-- Top App Bar Content -->
+<header class="h-16 flex justify-between items-center px-gutter sticky top-0 z-30 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20">
+<div class="flex items-center gap-4">
+<h2 class="text-headline-md font-headline-md text-on-surface">Expense Tracker</h2>
+<div class="hidden md:flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-[18px] text-secondary">flight_takeoff</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Tokyo &amp; Kyoto 2024</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young tech-savvy traveler, softly lit with cool blue and violet ambient lighting reflecting the TripCraft AI brand colors. The subject has a friendly, confident expression, set against a blurred minimalist architectural background. High-end aesthetic with sharp focus and clean skin textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXA_Yaq_8ui181PfpyGvWWcibk_fu7fq8OpXAniH1Ijq3O7c2l2FgFw58G01ex262kDrDNIPGJTqhy3UlFLNULLHOUBjHfFYkV5eT1RDwdZvKihhvs932Df5deAsUsqpNe1v9lYKLMZiGYIP3CgL1dHSGdmg6ifMUTghxDMdIM7X_gZfpkcF9UfdznV0YYzvBVhtmfFbgdLuafBC-85wapZpqzWnY4sW0gdNoOaLIqMPivnOC4g6xapdox_3pCO3h6Qrj5SfRt3mA"/>
+</div>
+</div>
+</header>
+<div class="max-w-container-max mx-auto px-gutter pt-xl space-y-xl">
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Summary Stats (Left column) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Top Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Total Spent -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Total Spent</span>
+<div class="p-2 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">$4,280.50</h3>
+<p class="text-label-sm font-label-sm text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                                    12% vs last trip
+                                </p>
+</div>
+</div>
+<!-- Daily Average -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Daily Average</span>
+<div class="p-2 rounded-lg bg-secondary/10 text-secondary">
+<span class="material-symbols-outlined">event_note</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">$356.70</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-60 mt-1">On budget</p>
+</div>
+</div>
+<!-- Remaining Budget -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-8 -mt-8 transition-transform duration-500 group-hover:scale-125"></div>
+<div class="flex justify-between items-start">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Remaining</span>
+<div class="p-2 rounded-lg bg-tertiary/10 text-tertiary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+</div>
+<div class="mt-4">
+<h3 class="text-headline-md font-headline-md font-bold text-on-surface">$1,719.50</h3>
+<div class="mt-3 h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full primary-gradient w-[72%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- History Table -->
+<div class="glass-panel rounded-2xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<h4 class="text-headline-md font-headline-md text-on-surface">Recent Transactions</h4>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full text-label-sm font-label-sm bg-primary-container text-on-primary-container">All</button>
+<button class="px-4 py-1.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">Hotels</button>
+<button class="px-4 py-1.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">Food</button>
+<button class="px-4 py-1.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">Transport</button>
+<button class="px-4 py-1.5 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors">Entertainment</button>
+</div>
+</div>
+<div class="overflow-x-auto scrollbar-hide">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Description</th>
+<th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4 text-body-md font-body-md">Oct 24, 2024</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                                Hotels
+                                            </span>
+</td>
+<td class="px-6 py-4 text-body-md font-body-md">Park Hyatt Tokyo - 3 Nights</td>
+<td class="px-6 py-4 text-body-md font-body-md font-bold text-right text-on-surface">$1,240.00</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4 text-body-md font-body-md">Oct 23, 2024</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                                Food
+                                            </span>
+</td>
+<td class="px-6 py-4 text-body-md font-body-md">Sukiyabashi Jiro Roppongi</td>
+<td class="px-6 py-4 text-body-md font-body-md font-bold text-right text-on-surface">$450.00</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4 text-body-md font-body-md">Oct 22, 2024</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                                Transport
+                                            </span>
+</td>
+<td class="px-6 py-4 text-body-md font-body-md">Japan Rail Pass Premium</td>
+<td class="px-6 py-4 text-body-md font-body-md font-bold text-right text-on-surface">$620.00</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4 text-body-md font-body-md">Oct 21, 2024</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                                                Shopping
+                                            </span>
+</td>
+<td class="px-6 py-4 text-body-md font-body-md">Ginza Mitsukoshi Dept</td>
+<td class="px-6 py-4 text-body-md font-body-md font-bold text-right text-on-surface">$280.50</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-6 py-4 text-body-md font-body-md">Oct 20, 2024</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                                                Entertainment
+                                            </span>
+</td>
+<td class="px-6 py-4 text-body-md font-body-md">TeamLab Borderless Tickets</td>
+<td class="px-6 py-4 text-body-md font-body-md font-bold text-right text-on-surface">$120.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-lowest text-center">
+<button class="text-label-sm font-label-sm text-primary hover:underline">Download CSV Report</button>
+</div>
+</div>
+</div>
+<!-- Analysis Sidebar (Right column) -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Expense Entry Form -->
+<div class="glass-panel p-6 rounded-2xl">
+<h4 class="text-label-sm font-label-sm font-bold text-on-surface mb-6 uppercase tracking-widest">Quick Entry</h4>
+<form class="space-y-4">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Amount</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold">$</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl py-3 pl-8 pr-4 text-on-surface focus:ring-1 focus:ring-secondary focus:outline-none transition-all" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Category</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl py-3 px-4 text-on-surface focus:ring-1 focus:ring-secondary focus:outline-none appearance-none">
+<option>Food</option>
+<option>Hotels</option>
+<option>Shopping</option>
+<option>Transport</option>
+<option>Entertainment</option>
+</select>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2">Description</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl py-3 px-4 text-on-surface focus:ring-1 focus:ring-secondary focus:outline-none" placeholder="What did you buy?" type="text"/>
+</div>
+<button class="w-full primary-gradient text-on-primary-fixed font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition-all" type="button">
+<span class="material-symbols-outlined">add_circle</span>
+                                Save Expense
+                            </button>
+</form>
+</div>
+<!-- Spending Distribution Chart -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center">
+<h4 class="w-full text-label-sm font-label-sm font-bold text-on-surface mb-6 uppercase tracking-widest">Category Split</h4>
+<div class="chart-container flex items-center justify-center">
+<!-- Simulated Pie Chart with SVG -->
+<svg class="w-40 h-40 transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#34343d" stroke-width="12"></circle>
+<circle class="pie-slice" cx="50" cy="50" fill="transparent" r="40" stroke="#4cd7f6" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-width="12"></circle>
+<circle class="pie-slice" cx="50" cy="50" fill="transparent" r="40" stroke="#c0c1ff" stroke-dasharray="251.2" stroke-dashoffset="188.4" stroke-width="12"></circle>
+<circle class="pie-slice" cx="50" cy="50" fill="transparent" r="40" stroke="#d0bcff" stroke-dasharray="251.2" stroke-dashoffset="230.1" stroke-width="12"></circle>
+</svg>
+<div class="absolute text-center">
+<span class="block text-headline-md font-headline-md font-bold">100%</span>
+<span class="text-label-sm font-label-sm opacity-50 uppercase">Analysis</span>
+</div>
+</div>
+<div class="w-full mt-8 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Hotels (45%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Food (30%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Transp. (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-on-surface-variant"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Other (10%)</span>
+</div>
+</div>
+</div>
+<!-- AI Budget Insight -->
+<div class="relative rounded-2xl p-6 overflow-hidden bg-primary-container/10 border border-primary/20">
+<div class="absolute top-0 right-0 p-3">
+<span class="material-symbols-outlined text-primary/40 animate-pulse">auto_awesome</span>
+</div>
+<h4 class="text-label-sm font-label-sm font-bold text-primary mb-2 uppercase">AI Insights</h4>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                            "You're trending <span class="text-secondary font-bold">under budget</span> for dining in Kyoto. If you maintain this pace, you could upgrade your final night to the Ritz-Carlton for an extra $240."
+                        </p>
+<button class="mt-4 text-label-sm font-label-sm text-primary flex items-center gap-1 hover:underline">
+                            View Upgrade Options
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Budget Progress Indicators Section -->
+<section class="glass-panel rounded-2xl p-8">
+<h4 class="text-headline-md font-headline-md mb-8">Category Budget Health</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-xl">
+<!-- Progress Item 1 -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Accommodation</span>
+<span class="text-mono-label font-mono-label">$2,400 / $3,000</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[80%]"></div>
+</div>
+<p class="text-label-sm font-label-sm text-secondary">80% used</p>
+</div>
+<!-- Progress Item 2 -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Dining &amp; Food</span>
+<span class="text-mono-label font-mono-label">$850 / $1,500</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[56%]"></div>
+</div>
+<p class="text-label-sm font-label-sm text-primary">56% used</p>
+</div>
+<!-- Progress Item 3 -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Activities</span>
+<span class="text-mono-label font-mono-label">$620 / $1,000</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[62%]"></div>
+</div>
+<p class="text-label-sm font-label-sm text-tertiary">62% used</p>
+</div>
+<!-- Progress Item 4 -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Local Travel</span>
+<span class="text-mono-label font-mono-label">$410 / $500</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[82%]"></div>
+</div>
+<p class="text-label-sm font-label-sm text-error">Warning: 82% used</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="md:ml-64 bg-surface-container-lowest border-t border-outline-variant/20 py-12">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<h3 class="text-headline-md font-headline-md font-bold text-primary">TripCraft AI</h3>
+<p class="text-label-sm font-label-sm text-on-surface-variant">© 2024 TripCraft AI. Precision Engineered Travel.</p>
+</div>
+<div>
+<h5 class="text-label-sm font-label-sm font-bold text-on-surface mb-4 uppercase">Product</h5>
+<ul class="space-y-2 text-label-sm font-label-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#">Pricing</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Enterprise</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Roadmap</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-sm font-label-sm font-bold text-on-surface mb-4 uppercase">Resources</h5>
+<ul class="space-y-2 text-label-sm font-label-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Support</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">API Status</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-sm font-label-sm font-bold text-on-surface mb-4 uppercase">Legal</h5>
+<ul class="space-y-2 text-label-sm font-label-sm text-on-surface-variant">
+<li><a class="hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant/10 flex justify-around items-center h-16 z-50 px-4">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-[10px] font-bold">Plan</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-[10px] font-bold">Expenses</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-bold">AI Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">More</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.classList.add('scale-95');
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.classList.remove('scale-95');
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.classList.remove('scale-95');
+            });
+        });
+
+        // Simple animation trigger for chart
+        window.addEventListener('DOMContentLoaded', () => {
+            const slices = document.querySelectorAll('.pie-slice');
+            slices.forEach((slice, idx) => {
+                slice.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${idx * 0.2}s`;
+            });
+        });
+    </script>
+</body></html>
